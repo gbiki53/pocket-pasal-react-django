@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./pocketpasal/frontend/src/index.js --output ./pocketpasal/frontend/static/frontend/main.js",
+    "dev": "webpack --mode development --watch ./pocketpasal/frontend/src/index.js --output ./pocketpasal/frontend/static/frontend/main.js",
     "build": "webpack --mode production ./pocketpasal/frontend/src/index.js --output ./pocketpasal/frontend/static/frontend/main.js"
   },
   "repository": {
