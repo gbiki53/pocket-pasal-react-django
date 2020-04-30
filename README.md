@@ -1,6 +1,6 @@
 # Introduction
 
-Pocket pasal is a fullstack simple e-commerce app developed using django and react.
+Pocket pasal is a simple fullstack e-commerce app developed using django and react.
 
 ## Requirement
 
@@ -9,9 +9,9 @@ Pocket pasal is a fullstack simple e-commerce app developed using django and rea
 
 ## Installation
 
-At the base directory of the project open command prompt and then enter the following command
-
 ### Setup Django server
+
+At the base directory of the project open command prompt and then enter the following command
 
 ```bash
 pip install pipenv
