@@ -7,8 +7,8 @@ class ItemCard extends Component {
       <div className="col-md-3" style={{ marginBottom: 10 }}>
         <div className="card">
           <img
-            src="https://via.placeholder.com/200"
-            className="card-img-top"
+            src={this.props.item.image}
+            className="card-img-top p-2"
             alt="product image"
           />
           <div className="card-body">

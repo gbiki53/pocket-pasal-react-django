@@ -9,6 +9,7 @@ class ItemForm extends Component {
     name: "",
     price: "",
     description: "",
+    image: null,
   };
 
   static propTypes = {
@@ -16,12 +17,23 @@ class ItemForm extends Component {
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onImageChange = (e) => this.setState({ [e.target.name]: e.target.files[0] });
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, price, description } = this.state;
-    const item = { name, price, description };
+    const { name, price, description, image } = this.state;
+    const item = new FormData();
+    item.append("name", name);
+    item.append("price", price);
+    item.append("description", description);
+    item.append("image", image, image.name);
     this.props.addItem(item);
+    this.setState({
+      name: "",
+      price: "",
+      description: "",
+      image: null,
+    });
   };
 
   render() {
@@ -30,35 +42,54 @@ class ItemForm extends Component {
       <div className="card card-body mt-4 mb-4">
         <h2>Add Items</h2>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Item Name</label>
-            <input
-              className="form-control"
-              type="text"
-              name="name"
-              onChange={this.onChange}
-              value={name}
-            />
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label">Item Name: </label>
+            <div className="col-sm-10">
+              <input
+                className="form-control"
+                type="text"
+                name="name"
+                onChange={this.onChange}
+                value={name}
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <label>Item Description</label>
-            <input
-              className="form-control"
-              type="text"
-              name="description"
-              onChange={this.onChange}
-              value={description}
-            />
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label">
+              Item Description:{" "}
+            </label>
+            <div className="col-sm-10">
+              <input
+                className="form-control"
+                type="text"
+                name="description"
+                onChange={this.onChange}
+                value={description}
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <label>Item price</label>
-            <input
-              className="form-control"
-              type="number"
-              name="price"
-              onChange={this.onChange}
-              value={price}
-            />
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label">Item price:</label>
+            <div className="col-sm-10">
+              <input
+                className="form-control"
+                type="number"
+                name="price"
+                onChange={this.onChange}
+                value={price}
+              />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label">Item photos:</label>
+            <div className="col-sm-10">
+              <input
+                className="form-control"
+                type="file"
+                name="image"
+                onChange={this.onImageChange}
+              />
+            </div>
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-primary">
