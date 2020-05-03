@@ -7,9 +7,12 @@ from django.http import HttpResponse
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = ItemSerializer
+
+    def get_queryset(self):
+        return self.request.user.items.all()
 
     def post(self, request, *args, **kwargs):
         name = request.data['name']
@@ -19,3 +22,6 @@ class ItemViewSet(viewsets.ModelViewSet):
         Item.objects.create(name=name, price=price,
                             description=description, image=image)
         return HttpResponse({'message': 'Item Created'}, status=200)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

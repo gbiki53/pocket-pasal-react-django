@@ -1,7 +1,7 @@
 import axios from "axios";
-import { createMessage } from "./messages";
+import { createMessage, returnErrors } from "./messages";
 
-import { GET_ITEMS, ADD_ITEM, GET_ERRORS } from "./types";
+import { GET_ITEMS, ADD_ITEM } from "./types";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -13,7 +13,9 @@ export const getItems = () => (dispatch) => {
     .then((res) => {
       dispatch({ type: GET_ITEMS, payload: res.data });
     })
-    .catch((err) => console.log(err));
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 //ADD ITEMS
@@ -24,14 +26,7 @@ export const addItem = (item) => (dispatch) => {
       dispatch(createMessage({ itemAdded: "Item Added" }));
       dispatch({ type: ADD_ITEM, payload: res.data });
     })
-    .catch((err) => {
-      const errors = {
-        msg: err.response.data,
-        status: err.response.status,
-      };
-      dispatch({
-        type: GET_ERRORS,
-        payload: errors,
-      });
-    });
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };

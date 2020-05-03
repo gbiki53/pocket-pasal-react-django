@@ -12,7 +12,7 @@ class Header extends Component {
           <a className="navbar-brand" href="#">
             Pocket Pasal
           </a>
-          <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+          <ul className="navbar-nav mt-2 mt-lg-0">
             <li className="nav-item">
               <Link to="item/add" className="nav-link">
                 Add Items
